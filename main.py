@@ -39,8 +39,8 @@ if torch.cuda.is_available():
     torch.cuda.manual_seed(args.seed)
     args.device = 'cuda:0'
 dataset = TUDataset(os.path.join('data',args.dataset),name=args.dataset)
-args.num_classes = dataset.num_classes
-args.num_features = dataset.num_features
+args.num_classes = dataset.num_classes # 2
+args.num_features = dataset.num_features # 89
 
 num_training = int(len(dataset)*0.8)
 num_val = int(len(dataset)*0.1)
@@ -97,4 +97,4 @@ for epoch in range(args.epochs):
 model = Net(args).to(args.device)
 model.load_state_dict(torch.load('latest.pth'))
 test_acc,test_loss = test(model,test_loader)
-print("Test accuarcy:{}".fotmat(test_acc))
+print("Test accuarcy:{}".fortmat(test_acc))

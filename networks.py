@@ -32,7 +32,7 @@ class Net(torch.nn.Module):
 
     def forward(self, data):
         x, edge_index, batch = data.x, data.edge_index, data.batch
-
+        # x  为meige node 的特征， edge_index 表示边，第一行是起始节点序号， 第二行的终点节点序号
         x = F.relu(self.conv1(x, edge_index))
         x, edge_index, _, batch, _ = self.pool1(x, edge_index, None, batch)
         x1 = torch.cat([gmp(x, batch), gap(x, batch)], dim=1)

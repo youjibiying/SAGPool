@@ -18,9 +18,9 @@ class SAGPool(torch.nn.Module):
         score = self.score_layer(x,edge_index).squeeze()
 
         perm = topk(score, self.ratio, batch)
-        x = x[perm] * self.non_linearity(score[perm]).view(-1, 1)
+        x = x[perm] * self.non_linearity(score[perm]).view(-1, 1) #X_idx \odot Z_idx
         batch = batch[perm]
         edge_index, edge_attr = filter_adj(
-            edge_index, edge_attr, perm, num_nodes=score.size(0))
+            edge_index, edge_attr, perm, num_nodes=score.size(0)) # 过滤掉 分数低的节点对应的edge
 
         return x, edge_index, edge_attr, batch, perm
